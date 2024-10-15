@@ -9,7 +9,6 @@ export default function Page() {
 
 
     sleepSync(7000);
-    throw new Error("custom error")
     return (
         <div className={"text-blue-600 text-3xl"}>
             dashboard pages
