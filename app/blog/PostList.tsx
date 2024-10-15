@@ -1,7 +1,9 @@
 import Link from "next/link";
 
 
-export default function PostLink({posts}) {
+export default function PostLink({posts}:{
+    posts:Array<PostBlog>
+}) {
     return (
         <ul>
             {

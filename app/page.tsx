@@ -3,9 +3,10 @@ import Link from "next/link";
 import PostLink from "@/app/blog/PostList";
 import {useRouter} from "next/navigation";
 
+
 export default function Home() {
 
-    const postData = [
+    const postData: Array<PostBlog> = [
         {id: 1, slug: "aaa", title: "111"},
         {id: 2, slug: "bbb", title: "222"},
         {id: 3, slug: "ccc", title: "333"},
