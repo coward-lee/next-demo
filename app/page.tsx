@@ -2,6 +2,7 @@
 import Link from "next/link";
 import PostLink from "@/app/blog/PostList";
 import {useRouter} from "next/navigation";
+import {PostBlog} from "@/app/lib/postcc";
 
 
 export default function Home() {

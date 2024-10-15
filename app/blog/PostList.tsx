@@ -1,4 +1,5 @@
 import Link from "next/link";
+import {PostBlog} from "@/app/lib/postcc";
 
 
 export default function PostLink({posts}:{

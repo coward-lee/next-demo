@@ -1,5 +1,5 @@
 
-interface PostBlog {
+export interface PostBlog {
     id?: number;
     slug?: string;
     title?: string;
