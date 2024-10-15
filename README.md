@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+### 路由文件约定
 
-## Getting Started
+路由文件，一些404 和一些基础的配置页面
 
-First, run the development server:
+| 文件           | 支持的后缀           | 作用                             |
+|--------------|-----------------|--------------------------------|
+| layout	      | .js .jsx .tsx   | 	Layout, 这个是页面的布局，也就是整个面的框架布局， |
+| page	        | .js .jsx .tsx   | 	Page 具体的页面内容                  |
+| loading	     | .js .jsx .tsx   | 	Loading UI 加载中的页面             |
+| not-found	   | .js .jsx .tsx	  | Not found UI 404 页面            |
+| error	       | .js .jsx .tsx   | 	Error UI 错误页面？                |
+| global-error | 	.js .jsx .tsx	 | Global error UI 全局错误           |
+| route	       | .js .ts         | 	API endpoint ？                |
+| template	    | .js .jsx .tsx	  | Re-rendered layout ？           |
+| default	     | .js .jsx .tsx	  | Parallel route fallback page   |
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 路由
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Learn More
+- Nested Routes  
+folder	        Route segment  
+folder/folder	Nested route segment  
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Dynamic Routes    
+  - [folder]	        Dynamic route segment  这个表示动态路由，
+    - [这里需要定义参数的名称]
+    - 参数获取
+      - page中定义 {params}: {params: {folder: string}} 
+      - folder就表示我们需要获取的参数名称
+      - 由于可能有多个参数，所以可以定义多个 folder的名字
+        - 如 文件路径为：app/[p1]/[p2]/[p3]
+        - page 参数定义 ：{params}: {params: {p1: string,p2:string,p3:string}}
+        - 那么访问  app/p1_arg/p2_arg/p3_arg
+        - 那么此时的 params.p1 = p1_args params.p2 = p2_args params.p3 = p3_args
+  - [...folder]	        Catch-all route segment  
+    - 获取路径上的所有参数，同时把 / 去掉了
+  - [[...folder]]	    Optional catch-all route segment  
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+- Route Groups and Private Folders  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  - (folder)	            
+    - Group routes without affecting routing, 
+    - 这个表示将一批路由放到一起，但是本身(folder)不会再路由中有任何效果，也就不会在url中出现
+    - 同时不允许出现两个相同的路由再不同的 (folder) 里面
+      - 如 (folder_1)/p1 和 (folder_2)/p1 是不允许出现的
+    - 他们之前的layout 也相互不会影响
+  - _folder	                Opt folder and all child segments out of routing  
+    - 可选择的路由方式, 应该就是将路由信息以路由的列表的方式传进去
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+- Parallel and Intercepted Routes  
+  - @folder	            Named slot   
+  - (.)folder	        Intercept same level   
+  - (..)folder	        Intercept one level above   
+  - (..)(..)folder	    Intercept two levels above   
+  - (...)folder	        Intercept from root   
