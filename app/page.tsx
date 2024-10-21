@@ -32,6 +32,8 @@ export default function Home() {
                 dashboard
             </button>
 
+            <p> 测试部署 1 </p>
+
         </div>
     );
 }
