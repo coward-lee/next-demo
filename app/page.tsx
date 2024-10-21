@@ -33,6 +33,7 @@ export default function Home() {
             </button>
 
             <p> 测试部署 1 </p>
+            <p> 测试部署 2 </p>
 
         </div>
     );
